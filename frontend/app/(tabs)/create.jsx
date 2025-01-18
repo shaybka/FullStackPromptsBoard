@@ -53,7 +53,7 @@ const Create = () => {
       const url = isEdit
         ? `${getServerUrl()}/api/prompt/update-prompt/${JSON.parse(post)._id}`
         : `${getServerUrl()}/api/prompt/create-prompt`;
-
+  
       const response = await fetch(url, { 
         method,
         headers: {
@@ -62,9 +62,9 @@ const Create = () => {
         },
         body: JSON.stringify({ title, content, tags }),
       });
-
+  
       const data = await response.json();
-
+  
       if (!response.ok) {
         if (data.errors) {
           setErrors(data.errors);
@@ -73,18 +73,25 @@ const Create = () => {
         }
         throw new Error();
       }
-
+  
       Alert.alert("Success", isEdit ? "Prompt updated successfully" : "Prompt created successfully");
       setTitle("");
       setContent("");
       setTags("");
-      router.push('/home'); 
+  
+      // Clear `post` to switch back to create mode
+      if (isEdit) {
+        router.replace('/create'); 
+      } else {
+        router.push('/home');
+      }
     } catch (error) {
       console.error(error.message);
     } finally {
       setSubmitting(false);
     }
   };
+  
 
   return (
     <SafeAreaView className="flex-1">
@@ -123,6 +130,7 @@ const Create = () => {
           ) : (
             <Button
               title={post ? "Update Prompt" : "Create Prompt"}
+              
               handlePress={handleSubmit}
             />
           )}
