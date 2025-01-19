@@ -105,7 +105,7 @@ const SignIn = () => {
           />
           <View className="mt-8">
             {submitting ? (
-              <ActivityIndicator size="large" color="#00ff00" />
+              <ActivityIndicator size="large" color="cyan" />
             ) : (
               <Button
                 title="Sign In"
