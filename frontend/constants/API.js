@@ -1,4 +1,4 @@
 export function getServerUrl() {
-    return "http://192.168.209.93:8000"; 
+    return "http://172.20.10.5:8000"; 
    
 }
